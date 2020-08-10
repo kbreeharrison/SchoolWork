@@ -1,0 +1,74 @@
+---
+title: "Homework_8"
+author: "Kyndal Harrison"
+date: "4/16/2020"
+output: pdf_document
+---
+
+# Question 1
+```{r}
+library( ggplot2 )
+library( dplyr)
+```
+
+(A)
+```{r}
+diamonds%>%
+  group_by(cut)%>%
+  summarise( count = n() )
+```
+
+(B)
+```{r}
+diamonds%>%
+  filter( cut == "Ideal") %>%
+  filter( color == "D")%>%
+  summarise( count = n() )
+
+diamonds%>%
+  filter( cut == "Fair")%>%
+  filter( color == "D")%>%
+  summarise( count = n() )
+```
+
+(C)
+```{r}
+
+prop.test( c(2834	,163), c(21551, 1610), conf.level = .95)
+```
+With a 95% confidence the difference between the proportion of D colored diamonds among all Fair and Ideal cut diamonds is between .014516 and .046003
+
+(D)
+(a)
+```{r}
+diamond = diamonds%>%
+  filter( cut == "Fair" | cut == "Ideal")
+```
+(b)
+```{r}
+ggplot(diamond,aes(x= cut, y= price))+geom_boxplot()
+```
+The graph reveals that there are outliers in the price of both Fair and Ideal diamond cuts, but that the distribution of prices in the two cuts is not not wide.
+
+(c)
+The null hypothesis is that fair cut diamonds are as equally expensive as fair cut diamonds on average. The alternative hypothesis is that fair cut diamonds are more expensive than ideal cut diamonds.
+
+(d)
+```{r}
+t.test(price~cut, diamond, conf.level = .95, alternative = "greater")
+```
+
+(e)
+It can be concluded that with a 95% confidence level the difference in price of Fair and Ideal cut diamonds are at least 749.079.
+
+(f)
+The null hypothesis has been rejected. A confounding variable could be that fair diamonds could tend to be larger in carat size.
+
+# Question 2
+```{r}
+consumer = read.csv("/Users/kyndalharrison/STAT1601/Class Materials/ConsumerSpending.csv")
+
+t.test( consumer$December, consumer$January, conf.level = .95)
+
+```
+The mean amount of spending in December exceeds that of spending in January. It can be concluded that this happens because of Christmas and other Holiday expenditures.

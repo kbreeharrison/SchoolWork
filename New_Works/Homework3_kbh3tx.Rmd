@@ -1,0 +1,44 @@
+---
+title: "Homework_3"
+author: "Kyndal Harrison"
+date: "2/11/2020"
+output: pdf_document
+---
+
+# Question 1
+```{r}
+library(ggplot2)
+ClassData = read.csv("/Users/kyndalharrison/STAT1601/Class Materials/ClassData.csv" )
+Revised_Dat = ClassData[ -c(47, 58), ]
+
+```
+
+# Question 2
+```{r}
+Revised_Data = na.omit( Revised_Dat )
+#This code removes all instances where there wasn't any input.
+```
+
+# Question 3
+```{r}
+aggregate( Revised_Data[ , c(2,8)], list( Revised_Data$Year), FUN = mean )
+
+```
+
+# Question 4
+```{r}
+library( RColorBrewer )
+library( ggplot2 )
+UVA_Year = factor(Revised_Data$Year, level = c( "First", "Second", "Third", "Fourth") )
+
+
+shell = ggplot( Revised_Data, aes( x = UVA_Year) ) 
+shell + stat_summary_bin( aes( y = Revised_Data$Lunch ), fun.y = "mean", geom = "bar", fill = brewer.pal( 4, "Set1"))+ labs( x = "Year at UVA", y = "Average Lunch Amount" )
+```
+
+# Question 5 
+```{r}
+line = ggplot( Revised_Data, aes( x = Revised_Data$Courses, y = Revised_Data$Sleep, fill = UVA_Year, color = UVA_Year))
+line + stat_summary( fun.y = "mean", geom = "point" )+stat_summary( fun.y = "mean", geom = "line")
+```
+

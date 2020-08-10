@@ -1,0 +1,58 @@
+---
+title: "STAT1601_Homework2"
+author: "Kyndal Harrison"
+date: "2/1/2020"
+output: pdf_document
+---
+
+# Question 1
+```{r}
+library( ggplot2 )
+RollerCoaster = read.csv("/Users/kyndalharrison/STAT1601/Class Materials/RollerCoasterData.csv")
+with(RollerCoaster, table(State, Type))
+```
+Virginia has zero wooden Roller Coasters
+
+
+# Question 2
+```{r}
+library( RColorBrewer)
+ggplot( data = RollerCoaster, mapping = aes( x = Design))+ geom_bar( fill = brewer.pal( 7, "Set1"))+ theme( axis.text.x = element_text( angle = 90), plot.title = element_text( hjust = .5)) + labs( x = "Roller Coaster Design", y = "Number of Roller Coasters", title = "Roller Coasters")
+```
+This graph shows the amount of different designs of Roller Coasters.
+
+
+# Question 3
+```{r}
+inversions = as.character(RollerCoaster$Inversions, na.rm = NULL)
+ggplot( data = RollerCoaster, mapping = aes( x = Design, fill = inversions))+geom_bar( position = "stack")
+```
+This graph shows the amount of inversions per Roller Coaster design.
+
+# Question 4
+```{r}
+ggplot( data = RollerCoaster, mapping = aes( x = age, fill = Type))+geom_histogram( binwidth = 10, bins = 10)
+
+```
+This graph depicts the relationship between age and a Roller Coaster being wooden or steel.
+
+
+# Question 5
+```{r}
+ggplot( data = RollerCoaster, mapping = aes( x = State, y = age, fill = Type))+ geom_boxplot()+theme( axis.text.x = element_text( angle = 90))
+```
+This graph shows the deviation of the age of roller coasters per state and per type.
+
+
+#Question 6
+```{r}
+ggplot( data = RollerCoaster, mapping = aes( x = Height, y = Speed, size = age))+geom_point( alpha = .35, aes( fill = Type, color = Type))
+```
+The graph shows the correlation of speed and height. It also shows which roller coasters are steel or wooden and how old they are by the size of the bubble.
+
+
+#Question 7
+```{r}
+ggplot( data = RollerCoaster, mapping = aes( x = Inversions ))+ geom_bar(fill = brewer.pal( 8, "BuPu") )
+```
+The graph shows the amount of Roller Coasters with a certain amount of inversions.

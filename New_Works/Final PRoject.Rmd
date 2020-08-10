@@ -1,0 +1,42 @@
+---
+title: "Final Project"
+author: "Kyndal Harrison"
+date: "4/7/2020"
+output: pdf_document
+---
+
+
+Does the number of total nominations affect a director's chance to win an Oscar?
+```{r}
+library(readxl)
+library( ggplot2 )
+library( dplyr)
+library( ISLR)
+oscarData = read_excel("/Users/kyndalharrison/STAT1601/Final Project/oscardata.xlsx")
+directors = oscarData %>%
+  filter( catergory == "directing")
+
+Directors = directors[-c(8,25,26,43,18,27,14,10,11,7,19,9),]
+
+ggplot( Directors, aes( x= oscarwins, y = oscarnoms))+geom_point( aes( color= gender))+ labs( title = "Total Nomations Affect on Directors' Chance of Winning", x = "Number of Wins", y = "Total Number of Nomations", color = "Gender")+geom_smooth(method = "lm")+ theme( legend.key = element_rect( fill = "white", color = "black"))+ ylim(0, 15)
+
+
+
+```
+```{r}
+cor( Directors$oscarwins, Directors$oscarnoms)
+```
+
+
+The average oscar wins of movies with leading white males
+```{r}
+movieWon = oscarData%>%
+  filter( catergory == "leading actor", ethnicity == "white" )%>%
+  group_by( movie)%>%
+  count( moviewins)
+
+countOfWins = table(movieWon$moviewins)
+
+
+t.test( countOfWins, conf.level = .95)
+```

@@ -1,0 +1,57 @@
+---
+title: "Homework_7"
+author: "Kyndal Harrison"
+date: "4/8/2020"
+output: pdf_document
+---
+```{r}
+library(dplyr)
+library(nycflights13)
+```
+
+# Question 1
+
+(a)
+The population is all flight from three NYC airports in 2023 and the parameter is mean of departure delays.
+
+(b)
+```{r}
+delayed = table( flights$dep_delay)
+t.test( delayed, conf.level = .95)
+```
+
+(c)
+Within a 95% degree of certainty the mean is between 388.3327 and 858.4263, which the mean is 623.2795
+
+(d)
+Their claim can be rejected because the mean is 623.2795 and that has been confirmed within a 95% confidence level. There is only a 5% chance that the mean isn't between those numbers
+
+
+# Question 2
+
+(a)
+The population is all American Arline flights leaving the three NYC airports in 2013, the parameter is proportion.
+
+(b)
+```{r}
+flights%>%
+  group_by(carrier)%>%
+  summarise( counts = n())
+```
+There were 32,729 American Airline Flights from NYC airports in 2013.
+
+(c)
+```{r}
+prop.test(32729, 336776, conf.level = .85 )
+```
+
+(d)
+There is a 85% degree of certainty that the proportion of American Airline flights leaving NYC airports were between .096449 and .097922
+
+(e)
+```{r}
+prop.test(32729, 336776, p = .12, alternative = "greater", conf.level = .95 )
+```
+
+(f)
+The alternative hypothesis is that there are more than 12% of flights leaving NYC are American Airlines carriers.The null hypothesis is that there is that 12% of flights leaving NYC airports were AA flights. The Type I error would be if you rejected the null hypothesis and it were true and a Type II error would be if you did not reject the null hypothesis and it were false. The worst error would be the alternative hypothesis since it the furthest from the actual proportion value.

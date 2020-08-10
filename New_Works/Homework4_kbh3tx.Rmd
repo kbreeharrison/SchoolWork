@@ -1,0 +1,57 @@
+---
+title: "Homework4_kbh3tx"
+author: "Kyndal Harrison"
+date: "2/18/2020"
+output: pdf_document
+---
+# Question 1 
+```{r}
+library( dplyr )
+PVA_data = read.csv("/Users/kyndalharrison/STAT1601/Class Materials/PVA.csv")
+
+P1 = PVA_data[which( PVA_data$Current.Gift>50),]
+P2 = P1[ which( P1$Time.Between.Gifts>12), ]
+
+```
+
+# Question 2
+```{r}
+sapply( PVA_data[ , c(6,7,8)], sd)
+
+```
+
+# Question 3
+```{r}
+names(PVA_data)[c(3,5,8)] = c("gender", "income_level", "current_gift")
+```
+
+# Question 4
+```{r}
+tapply( PVA_data$current_gift ,PVA_data$income_level, FUN = median)
+tapply( PVA_data$current_gift ,PVA_data$income_level, FUN = mean)
+```
+
+# Question 5 
+```{r}
+P3 <- PVA_data[which(PVA_data$current_gift<=50),]
+tapply( P3$current_gift, P3$income_level, FUN = median)
+tapply( P3$current_gift, P3$income_level, FUN = mean)
+
+```
+
+# Question 6
+```{r}
+revised_pva = PVA_data[, - c(1,4, 10)]
+```
+
+# Question 7
+```{r}
+Homework4_Out = revised_pva[c(1:100, 7551:7600),]
+```
+
+# Question 8 
+```{r}
+write.csv( Homework4_Out, "/Users/kyndalharrison/STAT1601/Class Materials/Homework4_Out.csv", row.names = TRUE)
+
+```
+
